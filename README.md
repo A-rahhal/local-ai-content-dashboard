@@ -1,5 +1,7 @@
 # 🚀 Autonomous Local AI Content Engine & Dashboard
 
+![Dashboard Preview](./image/image_2.png) (./image/image_1.png) (./image/image_3)
+
 An enterprise-grade, full-stack orchestration pipeline that bridges local Large Language Models (**Ollama/Qwen2.5**) and advanced Diffusion Models (**Stable Diffusion/A1111**). This repository hosts a professional production line engineered to generate, critique, filter, and illustrate high-engagement social media posts with native multi-lingual support (Arabic, English, and Mixed).
 
 ---
@@ -7,7 +9,7 @@ An enterprise-grade, full-stack orchestration pipeline that bridges local Large 
 ## 🔥 Key Technical Highlights
 
 * **3-Stage Text Orchestration Pipeline**: Implements an advanced architectural pattern:
-  $$\text{Strategic Plan} \longrightarrow \text{Contextual Drafting} \longrightarrow \text{Automated Critique \& Refinement}$$
+  `Strategic Plan` ➔ `Contextual Drafting` ➔ `Automated Critique & Refinement`
   This totally eliminates generic AI clichés and enhances semantic coherence.
 * **VRAM-Safe Queue Execution**: Designed specifically for consumer-grade GPUs, the image subsystem processes Stable Diffusion requests sequentially to protect memory blocks and mitigate Out-Of-Memory (OOM) errors.
 * **Deterministic Structured JSON Output**: Hard-enforced JSON schemas via native local model parameters (`format: "json"`), paired with a deep regex fallback parser (`safeJsonParseMaybe`) for bulletproof runtime resilience.
@@ -45,28 +47,34 @@ The ecosystem splits the heavy lifting between an asynchronous multi-pass Expres
                 │
                 ▼
       [ Polished Output UI ]
-⚡ Prerequisites & Local Environment Setup
+```
+
+---
+
+## ⚡ Prerequisites & Local Environment Setup
+
 Ensure you have your environment running locally with API paths exposed:
 
-1. Ollama Infrastructure
+### 1. Ollama Infrastructure
 Install Ollama and fetch the optimized instruction-tuned Qwen model:
 
-Bash
+```bash
 ollama pull qwen2.5:7b-instruct
-The endpoint will be exposed natively at http://127.0.0.1:11434.
+```
+*The endpoint will be exposed natively at `http://127.0.0.1:11434`.*
 
-2. Stable Diffusion WebUI (A1111)
+### 2. Stable Diffusion WebUI (A1111)
 Launch your local webui cluster with the necessary API capabilities enabled:
 
-Windows:
-
-Bash
+**Windows:**
+```bat
 webui-user.bat --api
-Linux / macOS:
+```
 
-Bash
+**Linux / macOS:**
+```bash
 ./webui-user.sh --api
-
+```
 *The endpoint will be exposed natively at `http://127.0.0.1:7860`.*
 
 ---
@@ -75,17 +83,19 @@ Bash
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/YOUR_USERNAME/your-repo-name.git](https://github.com/YOUR_USERNAME/your-repo-name.git)
-   cd your-repo-name
-   
-Deploy Node dependencies:
+   git clone https://github.com/A-rahhal/local-ai-content-dashboard.git
+   cd local-ai-content-dashboard
+   ```
 
-Bash
-npm install
-Ignite the Gateway Service:
+2. **Deploy Node dependencies:**
+   ```bash
+   npm install
+   ```
 
-Bash
-npm start
+3. **Ignite the Gateway Service:**
+   ```bash
+   npm start
+   ```
 
    *The application router lives at `http://127.0.0.1:3000`.*
 
@@ -99,7 +109,7 @@ Performs concurrent ping tests across Ollama core clusters and Stable Diffusion 
 ### 🔵 `POST /generate-posts`
 Produces optimized raw textual copy with multi-lingual sanitization filters.
 
-* **Sample Payload:**
+**Sample Payload:**
 ```json
 {
   "count": 10,
@@ -109,11 +119,16 @@ Produces optimized raw textual copy with multi-lingual sanitization filters.
   "lang": "mix",
   "tone": "friendly"
 }
-🔵 POST /generate-posts-with-images
+```
+
+### 🔵 `POST /generate-posts-with-images`
 Executes the full 4-stage pipeline. Text components are optimized, evaluated, and channeled sequentially into the image diffusion matrix to return fully illustrated social media cards containing local inline Base64 data strings.
 
-📁 Directory Structure
-Plaintext
+---
+
+## 📁 Directory Structure
+
+```plaintext
 ├── public/                 # Client UI Static Assets
 │   ├── index.html          # Semantic HTML5 Control Panel
 │   ├── style.css           # Modern Dashboard CSS Architecture
@@ -121,5 +136,10 @@ Plaintext
 ├── server.js               # Node.js Express Gateway Core Architecture
 ├── package.json            # Dependency & Build Management Matrix
 └── README.md               # Production Documentation
-🛡️ License
-Distributed under the MIT License. See LICENSE for more information.
+```
+
+---
+
+## 🛡️ License
+
+Distributed under the MIT License. See `LICENSE` for more information.
