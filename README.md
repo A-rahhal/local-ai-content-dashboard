@@ -2,7 +2,7 @@
 
 ![Dashboard Preview](./image/image_2.png) 
 ![Dashboard Preview](./image/image_1.png)
-![Dashboard Preview](./image/image_3)
+![Dashboard Preview](./image/image_3.png)
 
 An enterprise-grade, full-stack orchestration pipeline that bridges local Large Language Models (**Ollama/Qwen2.5**) and advanced Diffusion Models (**Stable Diffusion/A1111**). This repository hosts a professional production line engineered to generate, critique, filter, and illustrate high-engagement social media posts with native multi-lingual support (Arabic, English, and Mixed).
 
