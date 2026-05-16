@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en" dir="lef">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>AI Content Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-theme="dark">
+  <div class="app">
+
+    <!-- Top bar -->
+    <div class="topbar panel">
+      <div class="brand">
+        <div class="logo"></div>
+        <div>
+          <h1>AI Content Dashboard</h1>
+          <p>Control the rules — Generate seed posts from the Qwen model on Ollama</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="themeBtn" title="switch mode">
+          <span class="dot"></span>
+          <span>Dark / Light</span>
+        </button>
+        <button class="btn" id="healthBtn" title="Connection check">
+          <span>🔌</span><span>Health</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="panel">
+      <div class="hd">
+        <div>
+          <h2>Generation rules</h2>
+          <div class="sub">Change the type, language, lines, tone… then press Generate.</div>
+        </div>
+      </div>
+
+      <div class="bd">
+        <div class="grid">
+
+          <div class="field">
+            <label>Post type</label>
+            <select class="control" id="postKind">
+              <option value="question">Question</option>
+              <option value="article">Article</option>
+              <option value="quotes">Quotes</option>
+              <option value="poetry">Poetry</option>
+              <option value="funny">Funny</option>
+              <option value="politics">Politics</option>
+              <option value="tips">Tips</option>
+              <option value="discussion" selected>Discussion</option>
+            </select>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label>language</label>
+              <select class="control" id="lang">
+                <option value="ar" selected>Arabic</option>
+                <option value="en">English</option>
+                <option value="mix">Arabic + English</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Tone</label>
+              <select class="control" id="tone">
+                <option value="natural" selected>Natural</option>
+                <option value="formal">Formal</option>
+                <option value="friendly">Friendly</option>
+                <option value="fun">Fun</option>
+                <option value="serious">Serious</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label>Number of publications<span class="hint">1–50</span></label>
+              <input class="control" id="count" type="number" min="1" max="50" value="10"/>
+            </div>
+            <div class="field">
+              <label>Number of lines per post<span class="hint">1–8</span></label>
+              <input class="control" id="lines" type="number" min="1" max="8" value="2"/>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Category / Topic</label>
+            <input class="control" id="category" type="text" value="General news"/>
+            <div class="seg" id="quickTopics">
+              <div class="chip" data-topic="Students\University">Students\University</div>
+              <div class="chip" data-topic="technique">technique</div>
+              <div class="chip" data-topic="hobbies">hobbies</div>
+              <div class="chip" data-topic="gamse">games</div>
+              <div class="chip active" data-topic="General news">general</div>
+            </div>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label>Random topics</label>
+              <select class="control" id="randomTopics">
+                <option value="no" selected>No</option>
+                <option value="yes">Yes</option>
+              </select>
+            </div>
+          
+            <div class="field">
+              <label>Number topics<span class="hint">2–50</span></label>
+              <input class="control" id="randomTopicsCount" type="number" min="2" max="50" value="10"/>
+            </div>
+          </div>
+          
+          <div class="field">
+            <label>List of topics (optional)<span class="hint">Comma / new line</span></label>
+            <textarea class="control" id="topicsPool" rows="3"
+              placeholder="Study, technology, health, travel...&#10;or leave it blank for the system to choose automatically."></textarea>
+          </div>
+          
+
+          <div class="field">
+            <label>Examples reinforces style <span class="hint">Examples</span></label>
+            <textarea class="control" id="examples" rows="3"
+              placeholder="Example: A quiet night, a cup of coffee, a silent wait..."></textarea>
+          </div>
+          
+          <div class="field">
+            <label>Description/Explanation of the Topic<span class="hint">Description</span></label>
+            <textarea class="control" id="description" rows="3"
+              placeholder="Explain to the model exactly what you want..."></textarea>
+          </div>
+          
+
+          <div class="row2">
+            <div class="field">
+              <label>Emoji <span class="hint">Emojis</span></label>
+              <select class="control" id="emojis">
+                <option value="yes" selected>Allowed (0–2)</option>
+                <option value="no">forbidden</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>End with a question</label>
+              <select class="control" id="endQuestion">
+                <option value="auto" selected>By type(Auto)</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="sep"></div>
+
+          <div class="row2">
+            <button class="btn primary" id="gen">
+              <span id="genIcon">⚡</span>
+              <span id="genText">Create post</span>
+            </button>
+          
+            <button class="btn" id="genImg">
+              <span>🖼️</span>
+              <span>Create images</span>
+            </button>
+          </div>
+          
+          
+
+          <button class="btn danger" id="clear">
+            <span>🧹</span><span>Clear results</span>
+          </button>
+
+          <div class="note">
+
+            Tip: Start with <b>10 posts</b> and <b>2 lines</b>, then adjust as needed. 
+            (Connect: <code>127.0.0.1:3000</code> → Proxy → <code>127.0.0.1:11434</code>)
+            
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+
+      <div class="panel">
+        <div class="hd">
+          <div>
+            <h2>Results</h2>
+            <div class="sub" id="status">Ready for delivery.</div>
+          </div>
+        </div>
+
+        <div class="bd">
+          <div class="stats">
+            <div class="stat">
+              <div class="k">Count</div>
+              <div class="v" id="statCount">0 <small>posts</small></div>
+            </div>
+            <div class="stat">
+              <div class="k">Kind</div>
+              <div class="v" id="statKind">—</div>
+            </div>
+            <div class="stat">
+              <div class="k">Language</div>
+              <div class="v" id="statLang">—</div>
+            </div>
+            <div class="stat">
+              <div class="k">Lines</div>
+              <div class="v" id="statLines">—</div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px">
+            <div class="cards" id="cards"></div>
+          </div>
+
+          <div class="jsonwrap" style="margin-top:14px">
+            <div class="jsonbar">
+              <div>JSON Output</div>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <span style="color:var(--muted2)">Max height 320px</span>
+              </div>
+            </div>
+            <pre id="json"></pre>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+ cd stable-diffusion-webui
